@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/touchBoardMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6e000000"
+    android:clickable="true">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/touchboardCenter"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_touch_board"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/volumeUp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:src="@drawable/ic_volume_up_white_24dp" />
+
+            <ImageView
+                android:id="@+id/volumeDown"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:src="@drawable/ic_volume_down_white_24dp" />
+
+            <SeekBar
+                android:id="@+id/soundSeekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/volumeDown"
+                android:layout_toLeftOf="@id/volumeUp"
+                android:layout_toRightOf="@id/volumeDown"
+                android:layout_toStartOf="@id/volumeUp"
+                android:progressDrawable="@drawable/sound_seekbar"
+                android:thumb="@null" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/flash"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:src="@drawable/ic_highlight_white_24dp" />
+    </FrameLayout>
+</FrameLayout>

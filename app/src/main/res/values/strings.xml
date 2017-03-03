@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Assistive Touch</string>
+    <string name="how_to_use_assistive_touch">How to use Assistive Touch</string>
+    <string name="properties">Assistive touch protects your phone phycical keys\nProvides easy access</string>
+    <string name="use_info">Just start the button to use it</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+</resources>
