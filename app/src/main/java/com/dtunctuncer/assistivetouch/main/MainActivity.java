@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         ButterKnife.bind(this);
         DaggerMainComponent.builder().mainModule(new MainModule(this)).applicationComponent(App.getComponent()).build().inject(this);
         presenter.checkServiceRunning();
+
     }
 
     @OnClick(R.id.serviceButton)

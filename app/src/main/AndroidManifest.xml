@@ -4,9 +4,17 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <application
         android:name=".App"
@@ -27,6 +35,10 @@
             android:name=".touchboard.TouchService"
             android:enabled="true"
             android:exported="false" />
+
+        <activity
+            android:name=".touchboard.BrightnessHelperActivity"
+            android:theme="@style/TouchBoard.NoActionBar" />
     </application>
 
 </manifest>

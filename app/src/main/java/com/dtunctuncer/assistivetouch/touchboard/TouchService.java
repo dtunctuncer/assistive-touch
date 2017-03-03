@@ -2,6 +2,7 @@ package com.dtunctuncer.assistivetouch.touchboard;
 
 import android.animation.Animator;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -32,11 +34,9 @@ import timber.log.Timber;
 public class TouchService extends Service {
 
     public static final String SERVICE_SP_KEY = "service";
-    private boolean isFlashOn = false;
-
     @Inject
     SharedPreferences.Editor editor;
-
+    private boolean isFlashOn = false;
     private WindowManager windowManager;
     private ImageView assistiveTouch;
     private View touchBoard;
@@ -84,45 +84,92 @@ public class TouchService extends Service {
     private void initTouchBoard() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         touchBoard = inflater.inflate(R.layout.touch_board, null, false);
-        final SeekBar seekBar = ((SeekBar) touchBoard.findViewById(R.id.soundSeekbar));
-        touchboardCenter = (FrameLayout) touchBoard.findViewById(R.id.touchboardCenter);
+
+        initSoundSeekBar();
+
+        initFlash();
+
+        initBrightnessSeekBar();
+
+
+        touchBoard.findViewById(R.id.touchBoardMain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeTouchBoard();
+            }
+        });
+
+        touchboardParams = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_TOAST,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT);
+
+
+        touchboardParams.gravity = Gravity.CENTER;
+    }
+
+    private void initBrightnessSeekBar() {
+        final SeekBar brightSeekBar = (SeekBar) touchBoard.findViewById(R.id.brightSeekbar);
+        brightSeekBar.setEnabled(false);
+        brightSeekBar.setMax(255);
+        brightSeekBar.setKeyProgressIncrement(50);
+
+        touchBoard.findViewById(R.id.brightUp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                brightSeekBar.setProgress(brightSeekBar.getProgress() + 50);
+            }
+        });
+
+
+        touchBoard.findViewById(R.id.brightDown).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                brightSeekBar.setProgress(brightSeekBar.getProgress() - 50);
+            }
+        });
+
+        ContentResolver contentResolver = getContentResolver();
+
+
         try {
-            seekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
-            seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
-            seekBar.setEnabled(false);
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-        } catch (Exception e) {
+            int brightness = android.provider.Settings.System.getInt(contentResolver, android.provider.Settings.System.SCREEN_BRIGHTNESS);
+            brightSeekBar.setProgress(brightness);
+        } catch (Settings.SettingNotFoundException e) {
             Timber.e(e);
         }
-        touchBoard.findViewById(R.id.volumeUp).setOnClickListener(new View.OnClickListener() {
+
+        final Intent intent = new Intent(this, BrightnessHelperActivity.class);
+
+
+        brightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View v) {
-                seekBar.setProgress(seekBar.getProgress() + 1);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress < 20) {
+                    intent.putExtra("brightness", 20);
+                } else {
+                    intent.putExtra("brightness", progress);
+                }
+
+                TouchService.this.startActivity(intent);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
-        touchBoard.findViewById(R.id.volumeDown).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                seekBar.setProgress(seekBar.getProgress() - 1);
-            }
-        });
+    }
 
+    private void initFlash() {
         touchBoard.findViewById(R.id.flash).setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
             @Override
@@ -161,22 +208,47 @@ public class TouchService extends Service {
             }
         });
 
-        touchBoard.findViewById(R.id.touchBoardMain).setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void initSoundSeekBar() {
+        final SeekBar seekBar = ((SeekBar) touchBoard.findViewById(R.id.soundSeekbar));
+        touchboardCenter = (FrameLayout) touchBoard.findViewById(R.id.touchboardCenter);
+        try {
+            seekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+            seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
+            seekBar.setEnabled(false);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        touchBoard.findViewById(R.id.volumeUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeTouchBoard();
+                seekBar.setProgress(seekBar.getProgress() + 1);
             }
         });
 
-        touchboardParams = new WindowManager.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_TOAST,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
-
-
-        touchboardParams.gravity = Gravity.CENTER;
+        touchBoard.findViewById(R.id.volumeDown).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seekBar.setProgress(seekBar.getProgress() - 1);
+            }
+        });
     }
 
     private void initAssistiveTouch() {
