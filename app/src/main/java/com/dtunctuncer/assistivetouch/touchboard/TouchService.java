@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.AudioManager;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -26,16 +27,25 @@ import android.widget.SeekBar;
 
 import com.dtunctuncer.assistivetouch.App;
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.utils.RxBus;
+import com.dtunctuncer.assistivetouch.utils.events.CloseTouchBoardEvent;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.internal.schedulers.ExecutorScheduler;
 import timber.log.Timber;
 
 public class TouchService extends Service {
 
     public static final String SERVICE_SP_KEY = "service";
+
     @Inject
     SharedPreferences.Editor editor;
+    @Inject
+    RxBus rxBus;
+
     private boolean isFlashOn = false;
     private WindowManager windowManager;
     private ImageView assistiveTouch;
@@ -43,6 +53,7 @@ public class TouchService extends Service {
     private FrameLayout touchboardCenter;
     private WindowManager.LayoutParams touchboardParams;
     private AudioManager audioManager;
+    private Subscription subscription;
 
     private void openTouch() {
         assistiveTouch.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
@@ -73,7 +84,21 @@ public class TouchService extends Service {
         initAssistiveTouch();
         initTouchBoard();
         setServiceRunning(true);
+        subscribe();
 
+    }
+
+    private void subscribe() {
+        subscription = rxBus.toObserverable()
+                .subscribeOn(new ExecutorScheduler(AsyncTask.THREAD_POOL_EXECUTOR))
+                .subscribe(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        if (o instanceof CloseTouchBoardEvent) {
+                            closeTouchBoard();
+                        }
+                    }
+                });
     }
 
     private void setServiceRunning(boolean isRunning) {
@@ -380,6 +405,9 @@ public class TouchService extends Service {
             Timber.d(e);
         }
         setServiceRunning(false);
+        if (subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
         super.onDestroy();
     }
 }

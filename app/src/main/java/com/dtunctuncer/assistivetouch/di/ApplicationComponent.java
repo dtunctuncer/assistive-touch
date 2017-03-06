@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.dtunctuncer.assistivetouch.App;
+import com.dtunctuncer.assistivetouch.touchboard.BrightnessHelperActivity;
 import com.dtunctuncer.assistivetouch.touchboard.TouchService;
 
 import javax.inject.Singleton;
@@ -20,6 +21,8 @@ public interface ApplicationComponent {
     SharedPreferences preferences();
 
     SharedPreferences.Editor editor();
+
+    void inject(BrightnessHelperActivity activity);
 
     void inject(TouchService service);
 }

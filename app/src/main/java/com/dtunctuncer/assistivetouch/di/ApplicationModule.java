@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.dtunctuncer.assistivetouch.App;
+import com.dtunctuncer.assistivetouch.utils.RxBus;
 
 import javax.inject.Singleton;
 
@@ -21,13 +22,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    App provideApp(){
+    App provideApp() {
         return app;
     }
 
     @Provides
     @Singleton
-    Context provideContex(){
+    Context provideContex() {
         return app.getApplicationContext();
     }
 
@@ -41,5 +42,11 @@ public class ApplicationModule {
     @Singleton
     SharedPreferences.Editor provideEditor(SharedPreferences sharedPreferences) {
         return sharedPreferences.edit();
+    }
+
+    @Provides
+    @Singleton
+    RxBus provideBus() {
+        return new RxBus();
     }
 }

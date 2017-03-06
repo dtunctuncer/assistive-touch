@@ -5,4 +5,6 @@
     <string name="use_info">Just start the button to use it</string>
     <string name="start">START</string>
     <string name="stop">STOP</string>
+    <string name="brightness_settings_content">You have to give write settings permission to change brightness</string>
+    <string name="need_permission">Need Permission</string>
 </resources>
