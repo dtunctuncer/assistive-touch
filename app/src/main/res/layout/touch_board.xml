@@ -27,12 +27,14 @@
 
                 <ImageView
                     android:id="@+id/volumeUp"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/selector"
                     android:clickable="true"
+                    android:padding="4dp"
                     android:src="@drawable/ic_volume_up_white_24dp" />
 
                 <ImageView
@@ -42,7 +44,9 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/selector"
                     android:clickable="true"
+                    android:padding="4dp"
                     android:src="@drawable/ic_volume_down_white_24dp" />
 
                 <SeekBar
@@ -65,12 +69,14 @@
 
                 <ImageView
                     android:id="@+id/brightUp"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/selector"
                     android:clickable="true"
+                    android:padding="4dp"
                     android:src="@drawable/ic_brightness_high_black_24dp" />
 
                 <ImageView
@@ -80,7 +86,9 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/selector"
                     android:clickable="true"
+                    android:padding="4dp"
                     android:src="@drawable/ic_brightness_low_black_24dp" />
 
                 <SeekBar
@@ -95,15 +103,61 @@
                     android:progressDrawable="@drawable/sound_seekbar"
                     android:thumb="@null" />
             </RelativeLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/flash"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector"
+                        android:clickable="true"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_highlight_white_24dp" />
+
+                    <ImageView
+                        android:id="@+id/camera"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector"
+                        android:clickable="true"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_camera_alt_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/calculator"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector"
+                        android:clickable="true"
+                        android:padding="4dp"
+                        android:src="@drawable/calculator"
+                        android:tint="@color/turqu" />
+
+                    <ImageView
+                        android:id="@+id/alarm"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector"
+                        android:clickable="true"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_access_alarm_black_24dp" />
+                </TableRow>
+
+            </TableLayout>
         </LinearLayout>
 
 
-        <ImageView
-            android:id="@+id/flash"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:src="@drawable/ic_highlight_white_24dp" />
     </FrameLayout>
 </FrameLayout>

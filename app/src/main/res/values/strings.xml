@@ -7,4 +7,6 @@
     <string name="stop">STOP</string>
     <string name="brightness_settings_content">You have to give write settings permission to change brightness</string>
     <string name="need_permission">Need Permission</string>
+    <string name="camera_permission">Application need camera permission to access camera</string>
+    <string name="permission_error">You can\'t use if you don\'t give permission</string>
 </resources>

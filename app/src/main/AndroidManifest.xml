@@ -39,6 +39,9 @@
         <activity
             android:name=".touchboard.BrightnessHelperActivity"
             android:theme="@style/TouchBoard.NoActionBar" />
+        <activity
+            android:name=".touchboard.PermissionHelperActivity"
+            android:theme="@style/TouchBoard.NoActionBar" />
     </application>
 
 </manifest>

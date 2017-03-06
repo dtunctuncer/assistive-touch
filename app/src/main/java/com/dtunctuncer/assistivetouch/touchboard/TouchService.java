@@ -1,19 +1,23 @@
 package com.dtunctuncer.assistivetouch.touchboard;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -116,6 +120,10 @@ public class TouchService extends Service {
 
         initBrightnessSeekBar();
 
+        intCamera();
+
+        initCalculator();
+
 
         touchBoard.findViewById(R.id.touchBoardMain).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +141,41 @@ public class TouchService extends Service {
 
 
         touchboardParams.gravity = Gravity.CENTER;
+    }
+
+    private void initCalculator() {
+        touchBoard.findViewById(R.id.calculator).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_APP_CALCULATOR);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                closeTouchBoard();
+            }
+        });
+    }
+
+    private void intCamera() {
+        touchBoard.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int permissionCheck = ContextCompat.checkSelfPermission(TouchService.this, Manifest.permission.CAMERA);
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivity(intent);
+                    closeTouchBoard();
+                } else {
+                    Intent intent = new Intent(TouchService.this, PermissionHelperActivity.class);
+                    intent.putExtra("permission_name", Manifest.permission.CAMERA);
+                    intent.putExtra("message", getString(R.string.camera_permission));
+                    startActivity(intent);
+                    closeTouchBoard();
+                }
+            }
+        });
+
     }
 
     private void initBrightnessSeekBar() {
@@ -160,7 +203,7 @@ public class TouchService extends Service {
 
 
         try {
-            int brightness = android.provider.Settings.System.getInt(contentResolver, android.provider.Settings.System.SCREEN_BRIGHTNESS);
+            int brightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS);
             brightSeekBar.setProgress(brightness);
         } catch (Settings.SettingNotFoundException e) {
             Timber.e(e);
