@@ -65,7 +65,7 @@
         <activity
             android:name=".intro.IntroActivity"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".intro.SplashAcitivity">
+        <activity android:name=".intro.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

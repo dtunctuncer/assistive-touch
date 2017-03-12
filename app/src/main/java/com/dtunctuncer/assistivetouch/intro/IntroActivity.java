@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.core.PermissionTypes;
 import com.dtunctuncer.assistivetouch.intro.slide.CustomSlideFragment;
 import com.dtunctuncer.assistivetouch.main.MainActivity;
 
@@ -17,9 +18,7 @@ import agency.tango.materialintroscreen.SlideFragmentBuilder;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 
 public class IntroActivity extends MaterialIntroActivity {
-    public static final int TYPE_DRAW = 1;
-    public static final int TYPE_WRITE_SETTINGS = 2;
-    public static final int TYPE_DEVICE_ADMIN = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +42,10 @@ public class IntroActivity extends MaterialIntroActivity {
                 .description(getString(R.string.camera_permission))
                 .build());
 
-        addSlide(CustomSlideFragment.getInstance(TYPE_DEVICE_ADMIN));
+        addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DEVICE_ADMIN));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            addSlide(CustomSlideFragment.getInstance(TYPE_DRAW));
-            addSlide(CustomSlideFragment.getInstance(TYPE_WRITE_SETTINGS));
+            addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DRAW));
+            addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_WRITE_SETTINGS));
         }
 
     }

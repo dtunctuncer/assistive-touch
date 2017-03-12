@@ -11,9 +11,7 @@ import com.dtunctuncer.assistivetouch.main.MainActivity;
 
 import javax.inject.Inject;
 
-public class SplashAcitivity extends AppCompatActivity {
-    @Inject
-    SharedPreferences.Editor editor;
+public class SplashActivity extends AppCompatActivity {
     @Inject
     SharedPreferences preferences;
 
@@ -24,8 +22,7 @@ public class SplashAcitivity extends AppCompatActivity {
         boolean firstOpen = preferences.getBoolean("first_open", true);
         if (firstOpen) {
             startActivity(new Intent(this, IntroActivity.class));
-            editor.putBoolean("first_open", false);
-            editor.apply();
+
         } else {
             startActivity(new Intent(this, MainActivity.class));
         }

@@ -2,6 +2,7 @@ package com.dtunctuncer.assistivetouch.intro.slide;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -20,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dtunctuncer.assistivetouch.R;
-import com.dtunctuncer.assistivetouch.intro.IntroActivity;
+import com.dtunctuncer.assistivetouch.core.PermissionTypes;
 import com.dtunctuncer.assistivetouch.permission.AdminReceiver;
 
 import javax.inject.Inject;
@@ -75,18 +76,19 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
 
     @Override
     public void initViews(@DrawableRes int image, @StringRes int title, @StringRes int body) {
-        this.image.setImageResource(R.drawable.ic_image_black_24dp);
-        this.title.setText(R.string.draw_permission);
-        this.body.setText(R.string.draw_explanation);
+        this.image.setImageResource(image);
+        this.title.setText(title);
+        this.body.setText(body);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (1905 == requestCode) {
+        if (1905 == requestCode && Settings.canDrawOverlays(getActivity())) {
             grantPermission();
-        } else if (666 == requestCode) {
+        } else if (666 == requestCode && Settings.System.canWrite(getActivity())) {
             grantPermission();
-        } else if (15 == requestCode) {
+        } else if (15 == requestCode && Activity.RESULT_OK == resultCode) {
             grantPermission();
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -100,7 +102,7 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
     @OnClick(R.id.requestButton)
     public void requestPermission() {
         switch (type) {
-            case IntroActivity.TYPE_DRAW:
+            case PermissionTypes.TYPE_DRAW:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (!Settings.canDrawOverlays(getActivity())) {
                         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
@@ -108,12 +110,12 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
                     }
                 }
                 break;
-            case IntroActivity.TYPE_WRITE_SETTINGS:
+            case PermissionTypes.TYPE_WRITE_SETTINGS:
                 @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                 startActivityForResult(intent, 666);
                 break;
-            case IntroActivity.TYPE_DEVICE_ADMIN:
+            case PermissionTypes.TYPE_DEVICE_ADMIN:
                 ComponentName componentName = new ComponentName(getActivity(), AdminReceiver.class);
                 Intent deviceAdmin = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
                 deviceAdmin.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
@@ -125,18 +127,18 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
 
     @Override
     public int backgroundColor() {
-        if (type == IntroActivity.TYPE_DRAW)
+        if (type == PermissionTypes.TYPE_DRAW)
             return R.color.second_slide_background;
-        else if (type == IntroActivity.TYPE_DEVICE_ADMIN)
+        else if (type == PermissionTypes.TYPE_DEVICE_ADMIN)
             return R.color.third_slide_background;
         return R.color.custom_slide_background;
     }
 
     @Override
     public int buttonsColor() {
-        if (type == IntroActivity.TYPE_DRAW)
+        if (type == PermissionTypes.TYPE_DRAW)
             return R.color.second_slide_buttons;
-        else if (type == IntroActivity.TYPE_DEVICE_ADMIN)
+        else if (type == PermissionTypes.TYPE_DEVICE_ADMIN)
             return R.color.third_slide_buttons;
         return R.color.custom_slide_buttons;
     }
