@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "326287083066",
+    "firebase_url": "https://assisstive-touch.firebaseio.com",
+    "project_id": "assisstive-touch",
+    "storage_bucket": "assisstive-touch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326287083066:android:c3f5fbb715d242cb",
+        "android_client_info": {
+          "package_name": "com.dtunctuncer.assistivetouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326287083066-ee879110qfem2l7ligj96m4hcgjr9f0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dtunctuncer.assistivetouch",
+            "certificate_hash": "4c9a1813532e53d68671a229647dfea445aa1839"
+          }
+        },
+        {
+          "client_id": "326287083066-5v2jhpehljs6blh7p8bloce84k5gjs2l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmlXJ1SVkQdb6WFnZWWu4ZOQwBvN_EiZ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326287083066-5v2jhpehljs6blh7p8bloce84k5gjs2l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -38,9 +38,11 @@ import android.widget.Toast;
 
 import com.dtunctuncer.assistivetouch.App;
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.core.AnalyticsEvents;
 import com.dtunctuncer.assistivetouch.permission.AdminReceiver;
 import com.dtunctuncer.assistivetouch.permission.PermissionHelperActivity;
 import com.dtunctuncer.assistivetouch.utils.RxBus;
+import com.dtunctuncer.assistivetouch.utils.analytics.AnalyticsUtils;
 import com.dtunctuncer.assistivetouch.utils.events.CloseTouchBoardEvent;
 
 import java.util.ArrayList;
@@ -216,6 +218,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.mainMenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Home Screen Button", "Home Screen butonuna tıklandı");
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                 startMain.addCategory(Intent.CATEGORY_HOME);
                 startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -243,6 +246,7 @@ public class TouchService extends Service {
             @Override
             public void onClick(View v) {
 
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Auto Rotate Button", "Auto Rotate butonuna tıklandı");
                 if (checkSystemWritePermission()) {
                     int rotation = 0;
 
@@ -274,6 +278,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.alarm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Alarm Button", "Alarm butonuna tıklandı");
                 Intent openClockIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
                 openClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(openClockIntent);
@@ -300,6 +305,7 @@ public class TouchService extends Service {
             @Override
             public void onClick(View v) {
 
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Calculator Button", "Hesap makinesi butonuna tıklandı");
                 if (items.size() >= 1) {
                     String packageName = (String) items.get(0).get("packageName");
                     Intent i = pm.getLaunchIntentForPackage(packageName);
@@ -321,6 +327,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Camera Button", "Camera butonuna tıklandı");
                 int permissionCheck = ContextCompat.checkSelfPermission(TouchService.this, Manifest.permission.CAMERA);
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -348,6 +355,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.brightUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Brightness Up Button", "Parlaklık artırma butonuna tıklandı");
                 brightSeekBar.setProgress(brightSeekBar.getProgress() + 50);
             }
         });
@@ -356,6 +364,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.brightDown).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Brightness Down Button", "Parlaklık azaltma butonuna tıklandı");
                 brightSeekBar.setProgress(brightSeekBar.getProgress() - 50);
             }
         });
@@ -401,6 +410,7 @@ public class TouchService extends Service {
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Flash Button", "Flash butonuna tıklandı");
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     try {
                         CameraManager camManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
@@ -467,6 +477,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.volumeUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Sound Up Button", "Ses arttırma butonuna tıklandı");
                 seekBar.setProgress(seekBar.getProgress() + 1);
             }
         });
@@ -474,6 +485,7 @@ public class TouchService extends Service {
         touchBoard.findViewById(R.id.volumeDown).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Click Sound Down Button", "Ses azaltma butonuna tıklandı");
                 seekBar.setProgress(seekBar.getProgress() - 1);
             }
         });

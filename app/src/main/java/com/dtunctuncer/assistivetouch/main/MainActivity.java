@@ -8,7 +8,9 @@ import android.widget.LinearLayout;
 
 import com.dtunctuncer.assistivetouch.App;
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.core.AnalyticsEvents;
 import com.dtunctuncer.assistivetouch.touchboard.TouchService;
+import com.dtunctuncer.assistivetouch.utils.analytics.AnalyticsUtils;
 
 import javax.inject.Inject;
 
@@ -38,11 +40,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @OnClick(R.id.serviceButton)
     public void clickServiceButton() {
         if (serviceButton.getText().equals(getString(R.string.start))) {
+            AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Start Service", "Start service butonuna basıldı");
             moveTaskToBack(true);
             startService(new Intent(this, TouchService.class));
             serviceButton.setText(R.string.stop);
             finish();
         } else {
+            AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Stop Service", "Stop service butonuna basıldı");
             stopService(new Intent(this, TouchService.class));
             serviceButton.setText(R.string.start);
         }
