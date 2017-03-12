@@ -14,6 +14,10 @@
         android:name="android.hardware.camera.flash"
         android:required="false" />
 
+    <uses-feature
+        android:name="android.software.device_admin"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
@@ -42,13 +46,20 @@
             android:name=".permission.PermissionHelperActivity"
             android:theme="@style/TouchBoard.NoActionBar" />
 
-        <receiver android:name=".permission.AdminReceiver">
+        <receiver
+            android:name=".permission.AdminReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/policies" />
 
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".intro.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

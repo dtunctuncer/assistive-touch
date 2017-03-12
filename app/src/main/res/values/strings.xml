@@ -21,4 +21,5 @@
     <string name="grant_permission">Grant Permission</string>
     <string name="write_settings">Write Settings Permission</string>
     <string name="write_settings_explanation">Write settings permission is need for auto-rotate and brightness adjustment</string>
+    <string name="device_admin_permission_title">Device Admin Permission</string>
 </resources>

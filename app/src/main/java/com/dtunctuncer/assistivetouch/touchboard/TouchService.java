@@ -194,7 +194,7 @@ public class TouchService extends Service {
 
     private void initLockScreen() {
         final DevicePolicyManager policyManager = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
-        final ComponentName componentName = new ComponentName(TouchService.this, AdminReceiver.class);
+        final ComponentName componentName = new ComponentName(appContext, AdminReceiver.class);
         touchBoard.findViewById(R.id.lock).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,6 +2,8 @@ package com.dtunctuncer.assistivetouch.intro;
 
 
 import android.annotation.SuppressLint;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.permission.AdminReceiver;
 
 import agency.tango.materialintroscreen.SlideFragment;
 import butterknife.BindView;
@@ -73,6 +76,11 @@ public class CustomSlideFragment extends SlideFragment {
                 title.setText(R.string.write_settings);
                 body.setText(R.string.write_settings_explanation);
                 break;
+            case IntroActivity.TYPE_DEVICE_ADMIN:
+                image.setImageResource(R.drawable.ic_perm_device_information_black_24dp);
+                title.setText(R.string.device_admin_permission_title);
+                body.setText(R.string.device_admin_permission);
+                break;
         }
     }
 
@@ -82,6 +90,9 @@ public class CustomSlideFragment extends SlideFragment {
             canMoveFurther = true;
             requestButton.setVisibility(View.GONE);
         } else if (666 == requestCode) {
+            canMoveFurther = true;
+            requestButton.setVisibility(View.GONE);
+        } else if (15 == requestCode) {
             canMoveFurther = true;
             requestButton.setVisibility(View.GONE);
         }
@@ -104,6 +115,13 @@ public class CustomSlideFragment extends SlideFragment {
                 intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                 startActivityForResult(intent, 666);
                 break;
+            case IntroActivity.TYPE_DEVICE_ADMIN:
+                ComponentName componentName = new ComponentName(getActivity(), AdminReceiver.class);
+                Intent deviceAdmin = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+                deviceAdmin.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+                deviceAdmin.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, getString(R.string.device_admin_permission));
+                startActivityForResult(deviceAdmin, 15);
+                break;
         }
     }
 
@@ -111,6 +129,8 @@ public class CustomSlideFragment extends SlideFragment {
     public int backgroundColor() {
         if (type == IntroActivity.TYPE_DRAW)
             return R.color.second_slide_background;
+        else if (type == IntroActivity.TYPE_DEVICE_ADMIN)
+            return R.color.third_slide_background;
         return R.color.custom_slide_background;
     }
 
@@ -118,6 +138,8 @@ public class CustomSlideFragment extends SlideFragment {
     public int buttonsColor() {
         if (type == IntroActivity.TYPE_DRAW)
             return R.color.second_slide_buttons;
+        else if (type == IntroActivity.TYPE_DEVICE_ADMIN)
+            return R.color.third_slide_buttons;
         return R.color.custom_slide_buttons;
     }
 

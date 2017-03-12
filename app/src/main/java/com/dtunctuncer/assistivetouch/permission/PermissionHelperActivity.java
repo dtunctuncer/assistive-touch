@@ -3,6 +3,7 @@ package com.dtunctuncer.assistivetouch.permission;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +26,8 @@ public class PermissionHelperActivity extends Activity implements IPermissionVie
 
     @Inject
     PermissionPresenter presenter;
+    @Inject
+    Context appContext;
 
     private String permission, message;
     private ComponentName componentName;
@@ -33,7 +36,7 @@ public class PermissionHelperActivity extends Activity implements IPermissionVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerPermissionComponent.builder().applicationComponent(App.getComponent()).permissionModule(new PermissionModule(this)).build().inject(this);
-        componentName = new ComponentName(this, AdminReceiver.class);
+        componentName = new ComponentName(appContext, AdminReceiver.class);
         permission = getIntent().getStringExtra("permission_name");
         message = getIntent().getStringExtra("message");
         int type = getIntent().getIntExtra("type", 0);
@@ -43,11 +46,6 @@ public class PermissionHelperActivity extends Activity implements IPermissionVie
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 666) {
-            if (resultCode != Activity.RESULT_OK) {
-
-            }
-        }
         finish();
     }
 

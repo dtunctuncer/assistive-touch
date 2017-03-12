@@ -18,6 +18,7 @@ import agency.tango.materialintroscreen.animations.IViewTranslation;
 public class IntroActivity extends MaterialIntroActivity {
     public static final int TYPE_DRAW = 1;
     public static final int TYPE_WRITE_SETTINGS = 2;
+    public static final int TYPE_DEVICE_ADMIN = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 .description(getString(R.string.camera_permission))
                 .build());
 
+        addSlide(CustomSlideFragment.getInstance(TYPE_DEVICE_ADMIN));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             addSlide(CustomSlideFragment.getInstance(TYPE_DRAW));
             addSlide(CustomSlideFragment.getInstance(TYPE_WRITE_SETTINGS));
