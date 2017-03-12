@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.intro.slide.CustomSlideFragment;
 import com.dtunctuncer.assistivetouch.main.MainActivity;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;

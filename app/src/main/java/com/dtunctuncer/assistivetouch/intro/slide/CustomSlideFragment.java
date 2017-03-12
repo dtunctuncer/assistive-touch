@@ -1,4 +1,4 @@
-package com.dtunctuncer.assistivetouch.intro;
+package com.dtunctuncer.assistivetouch.intro.slide;
 
 
 import android.annotation.SuppressLint;
@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dtunctuncer.assistivetouch.R;
+import com.dtunctuncer.assistivetouch.intro.IntroActivity;
 import com.dtunctuncer.assistivetouch.permission.AdminReceiver;
+
+import javax.inject.Inject;
 
 import agency.tango.materialintroscreen.SlideFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CustomSlideFragment extends SlideFragment {
+public class CustomSlideFragment extends SlideFragment implements ISlideView {
+
+    @Inject
+    SlidePresenter presenter;
 
     @BindView(R.id.image)
     ImageView image;
@@ -53,6 +61,7 @@ public class CustomSlideFragment extends SlideFragment {
         if (getArguments() != null) {
             type = getArguments().getInt("type");
         }
+        DaggerSlideComponent.builder().slideModule(new SlideModule(this)).build().inject(this);
     }
 
     @Nullable
@@ -60,43 +69,32 @@ public class CustomSlideFragment extends SlideFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_custom_slide, container, false);
         ButterKnife.bind(this, view);
-        initViews();
+        presenter.checkTypeForView(type);
         return view;
     }
 
-    private void initViews() {
-        switch (type) {
-            case IntroActivity.TYPE_DRAW:
-                image.setImageResource(R.drawable.ic_image_black_24dp);
-                title.setText(R.string.draw_permission);
-                body.setText(R.string.draw_explanation);
-                break;
-            case IntroActivity.TYPE_WRITE_SETTINGS:
-                image.setImageResource(R.drawable.ic_settings_black_24dp);
-                title.setText(R.string.write_settings);
-                body.setText(R.string.write_settings_explanation);
-                break;
-            case IntroActivity.TYPE_DEVICE_ADMIN:
-                image.setImageResource(R.drawable.ic_perm_device_information_black_24dp);
-                title.setText(R.string.device_admin_permission_title);
-                body.setText(R.string.device_admin_permission);
-                break;
-        }
+    @Override
+    public void initViews(@DrawableRes int image, @StringRes int title, @StringRes int body) {
+        this.image.setImageResource(R.drawable.ic_image_black_24dp);
+        this.title.setText(R.string.draw_permission);
+        this.body.setText(R.string.draw_explanation);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (1905 == requestCode) {
-            canMoveFurther = true;
-            requestButton.setVisibility(View.GONE);
+            grantPermission();
         } else if (666 == requestCode) {
-            canMoveFurther = true;
-            requestButton.setVisibility(View.GONE);
+            grantPermission();
         } else if (15 == requestCode) {
-            canMoveFurther = true;
-            requestButton.setVisibility(View.GONE);
+            grantPermission();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void grantPermission() {
+        canMoveFurther = true;
+        requestButton.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.requestButton)
