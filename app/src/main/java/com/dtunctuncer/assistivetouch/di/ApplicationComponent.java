@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.dtunctuncer.assistivetouch.App;
+import com.dtunctuncer.assistivetouch.intro.SplashAcitivity;
 import com.dtunctuncer.assistivetouch.touchboard.BrightnessHelperActivity;
 import com.dtunctuncer.assistivetouch.touchboard.TouchService;
 
@@ -25,4 +26,6 @@ public interface ApplicationComponent {
     void inject(BrightnessHelperActivity activity);
 
     void inject(TouchService service);
+
+    void inject(SplashAcitivity splashAcitivity);
 }

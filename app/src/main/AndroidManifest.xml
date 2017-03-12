@@ -28,13 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".main.MainActivity">
-            <!--            <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>-->
-        </activity>
+        <activity android:name=".main.MainActivity" />
 
         <service
             android:name=".touchboard.TouchService"
@@ -60,7 +54,8 @@
 
         <activity
             android:name=".intro.IntroActivity"
-            android:theme="@style/Theme.Intro">
+            android:theme="@style/Theme.Intro" />
+        <activity android:name=".intro.SplashAcitivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
