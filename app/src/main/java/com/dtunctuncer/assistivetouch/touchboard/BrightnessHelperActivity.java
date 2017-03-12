@@ -42,12 +42,14 @@ public class BrightnessHelperActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             askPermission();
                             dialog.dismiss();
+                            finish();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            finish();
                         }
                     })
                     .show();

@@ -33,14 +33,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         ButterKnife.bind(this);
         DaggerMainComponent.builder().mainModule(new MainModule(this)).applicationComponent(App.getComponent()).build().inject(this);
         presenter.checkServiceRunning();
-
     }
 
     @OnClick(R.id.serviceButton)
     public void clickServiceButton() {
         if (serviceButton.getText().equals(getString(R.string.start))) {
+            moveTaskToBack(true);
             startService(new Intent(this, TouchService.class));
             serviceButton.setText(R.string.stop);
+            finish();
         } else {
             stopService(new Intent(this, TouchService.class));
             serviceButton.setText(R.string.start);

@@ -6,7 +6,7 @@
     android:background="#6e000000"
     android:clickable="true">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/touchboardCenter"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -16,148 +16,187 @@
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
-        <LinearLayout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/volumeUp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector"
+                android:clickable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_volume_up_white_24dp" />
+
+            <ImageView
+                android:id="@+id/volumeDown"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector"
+                android:clickable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_volume_down_white_24dp" />
+
+            <SeekBar
+                android:id="@+id/soundSeekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/volumeDown"
+                android:layout_toLeftOf="@id/volumeUp"
+                android:layout_toRightOf="@id/volumeDown"
+                android:layout_toStartOf="@id/volumeUp"
+                android:progressDrawable="@drawable/sound_seekbar"
+                android:thumb="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="16dp">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/brightUp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector"
+                android:clickable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_brightness_high_black_24dp" />
+
+            <ImageView
+                android:id="@+id/brightDown"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector"
+                android:clickable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_brightness_low_black_24dp" />
+
+            <SeekBar
+                android:id="@+id/brightSeekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/brightDown"
+                android:layout_toLeftOf="@id/brightUp"
+                android:layout_toRightOf="@id/brightDown"
+                android:layout_toStartOf="@id/brightUp"
+                android:progressDrawable="@drawable/sound_seekbar"
+                android:thumb="@null" />
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin">
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/volumeUp"
+                    android:id="@+id/flash"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:background="@drawable/selector"
                     android:clickable="true"
                     android:padding="4dp"
-                    android:src="@drawable/ic_volume_up_white_24dp" />
+                    android:src="@drawable/ic_highlight_white_24dp" />
 
                 <ImageView
-                    android:id="@+id/volumeDown"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector"
-                    android:clickable="true"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_volume_down_white_24dp" />
-
-                <SeekBar
-                    android:id="@+id/soundSeekbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/volumeDown"
-                    android:layout_toLeftOf="@id/volumeUp"
-                    android:layout_toRightOf="@id/volumeDown"
-                    android:layout_toStartOf="@id/volumeUp"
-                    android:progressDrawable="@drawable/sound_seekbar"
-                    android:thumb="@null" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <ImageView
-                    android:id="@+id/brightUp"
+                    android:id="@+id/camera"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:background="@drawable/selector"
                     android:clickable="true"
                     android:padding="4dp"
-                    android:src="@drawable/ic_brightness_high_black_24dp" />
+                    android:src="@drawable/ic_camera_alt_black_24dp" />
 
                 <ImageView
-                    android:id="@+id/brightDown"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
+                    android:id="@+id/calculator"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
                     android:background="@drawable/selector"
                     android:clickable="true"
                     android:padding="4dp"
-                    android:src="@drawable/ic_brightness_low_black_24dp" />
+                    android:src="@drawable/calculator"
+                    android:tint="@color/turqu" />
 
-                <SeekBar
-                    android:id="@+id/brightSeekbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/brightDown"
-                    android:layout_toLeftOf="@id/brightUp"
-                    android:layout_toRightOf="@id/brightDown"
-                    android:layout_toStartOf="@id/brightUp"
-                    android:progressDrawable="@drawable/sound_seekbar"
-                    android:thumb="@null" />
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/alarm"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_access_alarm_black_24dp" />
+            </TableRow>
 
-            <TableLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_horizontal_margin">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/autoRotate"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_screen_rotation_black_24dp" />
 
-                    <ImageView
-                        android:id="@+id/flash"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector"
-                        android:clickable="true"
-                        android:padding="4dp"
-                        android:src="@drawable/ic_highlight_white_24dp" />
+                <ImageView
+                    android:id="@+id/mainMenu"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_apps_black_24dp" />
 
-                    <ImageView
-                        android:id="@+id/camera"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector"
-                        android:clickable="true"
-                        android:padding="4dp"
-                        android:src="@drawable/ic_camera_alt_black_24dp" />
+                <ImageView
+                    android:id="@+id/lock"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_lock_black_24dp"
+                    android:tint="@color/turqu" />
 
-                    <ImageView
-                        android:id="@+id/calculator"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector"
-                        android:clickable="true"
-                        android:padding="4dp"
-                        android:src="@drawable/calculator"
-                        android:tint="@color/turqu" />
-
-                    <ImageView
-                        android:id="@+id/alarm"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector"
-                        android:clickable="true"
-                        android:padding="4dp"
-                        android:src="@drawable/ic_access_alarm_black_24dp" />
-                </TableRow>
-
-            </TableLayout>
-        </LinearLayout>
-
-
-    </FrameLayout>
+                <ImageView
+                    android:id="@+id/wifi"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_network_wifi_black_24dp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 </FrameLayout>
