@@ -38,7 +38,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 .backgroundColor(R.color.first_slide_background)
                 .buttonsColor(R.color.first_slide_buttons)
                 .neededPermissions(new String[]{Manifest.permission.CAMERA})
-                .image(agency.tango.materialintroscreen.R.drawable.ic_next)
+                .image(R.drawable.ic_camera_alt_white_24dp)
                 .title(getString(R.string.camera_permission_title))
                 .description(getString(R.string.camera_permission))
                 .build());
