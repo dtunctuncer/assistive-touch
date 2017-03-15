@@ -32,22 +32,19 @@ public class IntroActivity extends MaterialIntroActivity {
                     }
                 });
 
-
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.first_slide_background)
-                .buttonsColor(R.color.first_slide_buttons)
-                .neededPermissions(new String[]{Manifest.permission.CAMERA})
-                .image(R.drawable.ic_camera_alt_white_24dp)
-                .title(getString(R.string.camera_permission_title))
-                .description(getString(R.string.camera_permission))
-                .build());
-
-        addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DEVICE_ADMIN));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            addSlide(new SlideFragmentBuilder()
+                    .backgroundColor(R.color.first_slide_background)
+                    .buttonsColor(R.color.first_slide_buttons)
+                    .neededPermissions(new String[]{Manifest.permission.CAMERA})
+                    .image(R.drawable.ic_camera_alt_white_24dp)
+                    .title(getString(R.string.camera_permission_title))
+                    .description(getString(R.string.camera_permission))
+                    .build());
             addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DRAW));
             addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_WRITE_SETTINGS));
         }
-
+        addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DEVICE_ADMIN));
     }
 
     @Override

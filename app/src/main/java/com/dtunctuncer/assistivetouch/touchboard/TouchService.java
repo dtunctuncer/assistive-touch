@@ -74,6 +74,7 @@ public class TouchService extends Service {
     private LinearLayout touchboardCenter;
     private WindowManager.LayoutParams touchboardParams;
     private Subscription subscription;
+    private Camera camera;
 
     private void openTouch() {
         assistiveTouch.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
@@ -331,6 +332,8 @@ public class TouchService extends Service {
                 int permissionCheck = ContextCompat.checkSelfPermission(TouchService.this, Manifest.permission.CAMERA);
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     closeTouchBoard();
                 } else {
@@ -388,7 +391,8 @@ public class TouchService extends Service {
                 } else {
                     intent.putExtra("brightness", progress);
                 }
-
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 TouchService.this.startActivity(intent);
             }
 
@@ -427,7 +431,8 @@ public class TouchService extends Service {
                         Timber.e(e);
                     }
                 } else {
-                    Camera camera = Camera.open();
+                    if (camera == null)
+                        camera = Camera.open();
                     Camera.Parameters parameters = camera.getParameters();
                     camera.startPreview();
                     if (!isFlashOn) {
@@ -439,6 +444,8 @@ public class TouchService extends Service {
                         parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                         camera.setParameters(parameters);
                         camera.stopPreview();
+                        camera.release();
+                        camera = null;
                         isFlashOn = false;
                     }
                 }
