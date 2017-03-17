@@ -21,22 +21,7 @@ public class AdminReceiver extends DeviceAdminReceiver {
 
     @Override
     public void onDisabled(Context context, Intent intent) {
-        showToast(context, "Sample Device Admin: disabled");
-    }
-
-    @Override
-    public void onPasswordChanged(Context context, Intent intent) {
-        showToast(context, "Sample Device Admin: pw changed");
-    }
-
-    @Override
-    public void onPasswordFailed(Context context, Intent intent) {
-        showToast(context, "Sample Device Admin: pw failed");
-    }
-
-    @Override
-    public void onPasswordSucceeded(Context context, Intent intent) {
-        showToast(context, "Sample Device Admin: pw succeeded");
+        showToast(context, "Device Admin: disabled");
     }
 
     private void showToast(Context context, CharSequence msg) {

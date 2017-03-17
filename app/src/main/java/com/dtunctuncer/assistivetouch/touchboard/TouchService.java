@@ -23,7 +23,6 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,7 +33,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.dtunctuncer.assistivetouch.App;
 import com.dtunctuncer.assistivetouch.R;
@@ -623,8 +621,6 @@ public class TouchService extends Service {
         if (subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
-        Toast.makeText(appContext, "destroy", Toast.LENGTH_SHORT).show();
-        Log.e("TOUCH", "onDestroy: ");
         super.onDestroy();
     }
 }

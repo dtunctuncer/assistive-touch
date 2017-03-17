@@ -199,5 +199,19 @@
                     android:src="@drawable/ic_network_wifi_black_24dp" />
             </TableRow>
         </TableLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_touchboard_assistive_touch"
+            android:paddingBottom="7dp"
+            android:paddingEnd="14dp"
+            android:paddingStart="14dp"
+            android:paddingTop="7dp"
+            android:text="@string/app_name"
+            android:textColor="#4cffffff"
+            android:textSize="16sp" />
     </LinearLayout>
 </FrameLayout>

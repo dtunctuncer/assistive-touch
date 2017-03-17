@@ -10,13 +10,29 @@
     tools:context="com.dtunctuncer.assistivetouch.main.MainActivity">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_main_assistive_touch"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:text="@string/app_name"
+        android:textColor="#4cffffff"
+        android:textSize="30sp" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
+
         android:padding="8dp"
         android:text="@string/how_to_use_assistive_touch"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
@@ -28,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/properties"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -54,6 +71,5 @@
             android:text="@string/start"
             android:textColor="@color/white" />
     </LinearLayout>
-
 
 </LinearLayout>
