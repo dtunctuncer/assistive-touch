@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.FloatRange;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -41,8 +42,10 @@ public class IntroActivity extends MaterialIntroActivity {
                     .title(getString(R.string.camera_permission_title))
                     .description(getString(R.string.camera_permission))
                     .build());
-            addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DRAW));
-            addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_WRITE_SETTINGS));
+            if (!Settings.canDrawOverlays(this))
+                addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DRAW));
+            if (!Settings.System.canWrite(this))
+                addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_WRITE_SETTINGS));
         }
         addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DEVICE_ADMIN));
     }

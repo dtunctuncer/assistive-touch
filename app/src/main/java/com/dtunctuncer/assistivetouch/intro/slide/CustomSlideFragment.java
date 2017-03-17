@@ -7,7 +7,6 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.ColorRes;
@@ -15,6 +14,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,16 +102,20 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
         requestButton.setVisibility(View.GONE);
     }
 
+    @SuppressLint("NewApi")
     @OnClick(R.id.requestButton)
     public void requestPermission() {
+        Log.e("DTT", "izin1");
+        Log.e("DTT", "type : " + type);
         switch (type) {
             case PermissionTypes.TYPE_DRAW:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Log.e("DTT", "izin2");
+                Log.e("DTT", "Settings.canDrawOverlays : " + Settings.canDrawOverlays(getActivity()));
                     if (!Settings.canDrawOverlays(getActivity())) {
+                        Log.e("DTT", "izin3");
                         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
                         startActivityForResult(intent, 1905);
                     }
-                }
                 break;
             case PermissionTypes.TYPE_WRITE_SETTINGS:
                 @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
