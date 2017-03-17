@@ -117,7 +117,8 @@
                     android:background="@drawable/selector"
                     android:clickable="true"
                     android:padding="4dp"
-                    android:src="@drawable/ic_highlight_white_24dp" />
+                    android:src="@drawable/flashlight_off"
+                    android:tint="@color/turqu" />
 
                 <ImageView
                     android:id="@+id/camera"

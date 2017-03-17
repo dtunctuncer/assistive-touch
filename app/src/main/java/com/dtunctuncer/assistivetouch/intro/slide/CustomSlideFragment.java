@@ -10,9 +10,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,10 +77,11 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
     }
 
     @Override
-    public void initViews(@DrawableRes int image, @StringRes int title, @StringRes int body) {
+    public void initViews(@DrawableRes int image, @StringRes int title, @StringRes int body, @ColorRes int button) {
         this.image.setImageResource(image);
         this.title.setText(title);
         this.body.setText(body);
+        this.requestButton.setBackgroundColor(ContextCompat.getColor(getActivity(), button));
     }
 
     @SuppressLint("NewApi")

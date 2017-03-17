@@ -176,19 +176,19 @@ public class TouchService extends Service {
         final ImageView wifi = (ImageView) touchBoard.findViewById(R.id.wifi);
 
         if (wifiManager.isWifiEnabled())
-            wifi.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_signal_wifi_off_black_24dp));
-        else
             wifi.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_network_wifi_black_24dp));
+        else
+            wifi.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_signal_wifi_off_black_24dp));
 
 
         wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (wifiManager.isWifiEnabled()) {
-                    wifi.setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_network_wifi_black_24dp));
+                    wifi.setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_signal_wifi_off_black_24dp));
                     wifiManager.setWifiEnabled(false);
                 } else {
-                    wifi.setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_signal_wifi_off_black_24dp));
+                    wifi.setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_network_wifi_black_24dp));
                     wifiManager.setWifiEnabled(true);
                 }
             }
@@ -234,9 +234,9 @@ public class TouchService extends Service {
         try {
             int rotation = Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION);
             if (rotation == 1) {
-                ((ImageView) touchBoard.findViewById(R.id.autoRotate)).setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_stay_current_portrait_black_24dp));
-            } else {
                 ((ImageView) touchBoard.findViewById(R.id.autoRotate)).setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_screen_rotation_black_24dp));
+            } else {
+                ((ImageView) touchBoard.findViewById(R.id.autoRotate)).setImageDrawable(ContextCompat.getDrawable(TouchService.this, R.drawable.ic_stay_current_portrait_black_24dp));
             }
         } catch (Settings.SettingNotFoundException e) {
             Timber.e(e);
@@ -410,6 +410,7 @@ public class TouchService extends Service {
     }
 
     private void initFlash() {
+        final ImageView flash = (ImageView) touchBoard.findViewById(R.id.flash);
         touchBoard.findViewById(R.id.flash).setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
             @Override
@@ -422,9 +423,11 @@ public class TouchService extends Service {
                         if (!isFlashOn) {
                             camManager.setTorchMode(cameraId, true);
                             isFlashOn = true;
+                            flash.setImageResource(R.drawable.flashlight);
                         } else {
                             camManager.setTorchMode(cameraId, false);
                             isFlashOn = false;
+                            flash.setImageResource(R.drawable.flashlight_off);
                         }
 
                     } catch (Exception e) {
