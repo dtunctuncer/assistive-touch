@@ -165,7 +165,6 @@ public class TouchService extends Service {
 
         touchboardParams.gravity = Gravity.CENTER;
 
-//        windowManager.addView(touchBoard, touchboardParams);
     }
 
     //region initButtons
@@ -330,7 +329,9 @@ public class TouchService extends Service {
                 int permissionCheck = ContextCompat.checkSelfPermission(TouchService.this, Manifest.permission.CAMERA);
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                    int sdk = Build.VERSION.SDK_INT;
+                    int lol = Build.VERSION_CODES.LOLLIPOP;
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     closeTouchBoard();
@@ -389,7 +390,7 @@ public class TouchService extends Service {
                 } else {
                     intent.putExtra("brightness", progress);
                 }
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 TouchService.this.startActivity(intent);
             }
