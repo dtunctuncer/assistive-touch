@@ -2,7 +2,6 @@ package com.dtunctuncer.assistivetouch.main;
 
 import com.dtunctuncer.assistivetouch.di.ActivityScope;
 import com.dtunctuncer.assistivetouch.di.ApplicationComponent;
-import com.dtunctuncer.assistivetouch.di.ApplicationModule;
 
 import dagger.Component;
 

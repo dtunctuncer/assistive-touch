@@ -1,6 +1,7 @@
 package com.dtunctuncer.assistivetouch.main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             moveTaskToBack(true);
             startService(new Intent(this, TouchService.class));
             serviceButton.setText(R.string.stop);
-            finish();
+            exit();
         } else {
             AnalyticsUtils.trackEvent(AnalyticsEvents.CLIKCK_EVENT, "Stop Service", "Stop service butonuna basıldı");
             stopService(new Intent(this, TouchService.class));
@@ -56,5 +57,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void changeStartButtonText(String contextString) {
         serviceButton.setText(contextString);
+    }
+
+    private void exit() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            finishAndRemoveTask();
+        else
+            finish();
     }
 }

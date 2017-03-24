@@ -134,7 +134,7 @@ public class TouchService extends Service {
 
         initBrightnessSeekBar();
 
-        intCamera();
+        initCamera();
 
         initCalculator();
 
@@ -321,7 +321,7 @@ public class TouchService extends Service {
         });
     }
 
-    private void intCamera() {
+    private void initCamera() {
         touchBoard.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -329,9 +329,7 @@ public class TouchService extends Service {
                 int permissionCheck = ContextCompat.checkSelfPermission(TouchService.this, Manifest.permission.CAMERA);
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    int sdk = Build.VERSION.SDK_INT;
-                    int lol = Build.VERSION_CODES.LOLLIPOP;
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     closeTouchBoard();
@@ -390,7 +388,7 @@ public class TouchService extends Service {
                 } else {
                     intent.putExtra("brightness", progress);
                 }
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 TouchService.this.startActivity(intent);
             }
@@ -410,6 +408,7 @@ public class TouchService extends Service {
 
     private void initFlash() {
         final ImageView flash = (ImageView) touchBoard.findViewById(R.id.flash);
+        flash.setImageResource(R.drawable.flashlight_off);
         touchBoard.findViewById(R.id.flash).setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
             @Override
