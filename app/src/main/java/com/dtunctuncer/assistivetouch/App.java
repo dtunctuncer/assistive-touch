@@ -9,6 +9,7 @@ import com.dtunctuncer.assistivetouch.di.ApplicationModule;
 import com.dtunctuncer.assistivetouch.di.DaggerApplicationComponent;
 import com.dtunctuncer.assistivetouch.utils.analytics.AnalyticsTracker;
 import com.dtunctuncer.assistivetouch.utils.timber.CrashReportTree;
+import com.google.android.gms.ads.MobileAds;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
@@ -24,6 +25,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //Ad
+        MobileAds.initialize(this, getString(R.string.ad_app_id));
 
         //di
         component = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();

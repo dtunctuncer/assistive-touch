@@ -106,10 +106,10 @@ public class CustomSlideFragment extends SlideFragment implements ISlideView {
     public void requestPermission() {
         switch (type) {
             case PermissionTypes.TYPE_DRAW:
-                    if (!Settings.canDrawOverlays(getActivity())) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
-                        startActivityForResult(intent, 1905);
-                    }
+                if (!Settings.canDrawOverlays(getActivity())) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
+                    startActivityForResult(intent, 1905);
+                }
                 break;
             case PermissionTypes.TYPE_WRITE_SETTINGS:
                 @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);

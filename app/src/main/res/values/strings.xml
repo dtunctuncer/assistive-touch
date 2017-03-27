@@ -13,8 +13,6 @@
     <string name="device_admin_permission">We need device admin permission to lock screen</string>
     <string name="camera_permission_title">Camera Permission</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="request_permission">Request Permission</string>
     <string name="draw_permission">Draw Permission</string>
     <string name="draw_explanation">Draw permission is need for Assitive Touch Button and Touch Board</string>
@@ -22,4 +20,9 @@
     <string name="write_settings">Write Settings Permission</string>
     <string name="write_settings_explanation">Write settings permission is need for auto-rotate and brightness adjustment</string>
     <string name="device_admin_permission_title">Device Admin Permission</string>
+
+    <string name="ad_app_id">ca-app-pub-9443930888865587~7763367156</string>
+    <string name="main_inter">ca-app-pub-9443930888865587/7623766357</string>
+    <string name="main_banner">ca-app-pub-9443930888865587/7623766357</string>
+
 </resources>

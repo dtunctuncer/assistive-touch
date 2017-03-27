@@ -22,16 +22,25 @@ android {
         applicationId "com.dtunctuncer.assistivetouch"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 7
+        versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../app/keystore/keystore.jks")
+            storePassword "1358110081deniz"
+            keyAlias "dtunctuncer"
+            keyPassword "1358110081deniz"
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
     }
 
@@ -62,10 +71,11 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.3.1'
 
     //Firabase
-    compile 'com.google.firebase:firebase-messaging:10.2.0'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile 'com.google.firebase:firebase-ads:10.2.1'
 
     //Analytics
-    compile 'com.google.android.gms:play-services-analytics:10.2.0'
+    compile 'com.google.android.gms:play-services-analytics:10.2.1'
 
     //showcase
     compile 'agency.tango.android:material-intro-screen:0.0.5'
