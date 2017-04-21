@@ -47,7 +47,7 @@ public class IntroActivity extends MaterialIntroActivity {
             if (!Settings.System.canWrite(this))
                 addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_WRITE_SETTINGS));
         }
-        addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DEVICE_ADMIN));
+//        addSlide(CustomSlideFragment.getInstance(PermissionTypes.TYPE_DEVICE_ADMIN));
     }
 
     @Override

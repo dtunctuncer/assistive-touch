@@ -3,8 +3,6 @@ package com.dtunctuncer.assistivetouch.touchboard;
 import android.Manifest;
 import android.animation.Animator;
 import android.app.Service;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,7 +35,6 @@ import android.widget.SeekBar;
 import com.dtunctuncer.assistivetouch.App;
 import com.dtunctuncer.assistivetouch.R;
 import com.dtunctuncer.assistivetouch.core.AnalyticsEvents;
-import com.dtunctuncer.assistivetouch.permission.AdminReceiver;
 import com.dtunctuncer.assistivetouch.permission.PermissionHelperActivity;
 import com.dtunctuncer.assistivetouch.utils.RxBus;
 import com.dtunctuncer.assistivetouch.utils.analytics.AnalyticsUtils;
@@ -144,7 +141,7 @@ public class TouchService extends Service {
 
         initHomeScreen();
 
-        initLockScreen();
+//        initLockScreen();
 
         initWifi();
         //endregion
@@ -193,7 +190,7 @@ public class TouchService extends Service {
     }
 
     private void initLockScreen() {
-        final DevicePolicyManager policyManager = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
+       /* final DevicePolicyManager policyManager = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
         final ComponentName componentName = new ComponentName(appContext, AdminReceiver.class);
         touchBoard.findViewById(R.id.lock).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +206,7 @@ public class TouchService extends Service {
                 }
                 closeTouchBoard();
             }
-        });
+        });*/
     }
 
     private void initHomeScreen() {
