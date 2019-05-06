@@ -21,8 +21,8 @@
     <string name="write_settings_explanation">Write settings permission is need for auto-rotate and brightness adjustment</string>
     <string name="device_admin_permission_title">Device Admin Permission</string>
 
-    <string name="ad_app_id">ca-app-pub-9443930888865587~7763367156</string>
-    <string name="main_inter">ca-app-pub-9443930888865587/7623766357</string>
-    <string name="main_banner">ca-app-pub-9443930888865587/7623766357</string>
+    <string name="ad_app_id"></string>
+    <string name="main_inter"></string>
+    <string name="main_banner"></string>
 
 </resources>
